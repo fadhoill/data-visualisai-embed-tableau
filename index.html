@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laporan Kinerja Supermarket Q1 2019</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0F1624;
+      --navy-2: #16203A;
+      --slate: #2A3347;
+      --amber: #F5A623;
+      --amber-dim: #C4821A;
+      --off-white: #F0EEE9;
+      --muted: #8A93A6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--navy);
+      color: var(--off-white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.65;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--slate);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 40%, rgba(245, 166, 35, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      max-width: 800px;
+      color: var(--off-white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      color: var(--amber);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      font-weight: 400;
+      margin-bottom: 3rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--amber);
+    }
+
+    .hero-stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Divider ── */
+    .amber-line {
+      width: 48px;
+      height: 3px;
+      background: var(--amber);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Section ── */
+    .report-section {
+      padding: 5rem 2rem;
+      border-bottom: 1px solid var(--slate);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .report-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Ghost number watermark */
+    .ghost-num {
+      position: absolute;
+      top: -0.1em;
+      right: -0.02em;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(8rem, 20vw, 18rem);
+      font-weight: 700;
+      color: rgba(245, 166, 35, 0.04);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .section-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    /* ── Narasi ── */
+    .narasi-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.6rem;
+    }
+
+    .narasi h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      color: var(--off-white);
+    }
+
+    .narasi p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Highlight callout inside narasi */
+    .callout {
+      margin: 1.5rem 0;
+      padding: 1rem 1.25rem;
+      border-left: 3px solid var(--amber);
+      background: rgba(245, 166, 35, 0.06);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout strong {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--amber);
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.93rem;
+      color: var(--off-white);
+    }
+
+    /* Bullet findings */
+    .findings {
+      list-style: none;
+      margin: 1rem 0 0;
+    }
+
+    .findings li {
+      position: relative;
+      padding-left: 1.25rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .findings li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-size: 0.8rem;
+      top: 0.12em;
+    }
+
+    /* ── Embed placeholder ── */
+    .embed-wrap {
+      background: var(--navy-2);
+      border: 1px solid var(--slate);
+      border-radius: 8px;
+      overflow: hidden;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .embed-label {
+      padding: 0.6rem 1rem;
+      background: var(--slate);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .embed-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--amber);
+    }
+
+    .embed-inner {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Replace this div with your actual Tableau iframe */
+    .tableau-placeholder {
+      width: 100%;
+      height: 480px;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--slate);
+    }
+
+    .tableau-placeholder svg {
+      opacity: 0.4;
+    }
+
+    .tableau-placeholder span {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* Actual iframe when you drop it in */
+    .embed-wrap iframe {
+      width: 100%;
+      border: none;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div style="max-width:1200px; margin:0 auto; width:100%;">
+      <p class="hero-eyebrow">VISUALISASI DATA SUPERMARKET Q1 2019</p>
+      <h1>Apa yang benar-benar terjadi<br><span>di tiga kota</span> kita?</h1>
+      <p class="hero-sub">
+        Tinjauan kinerja penjualan Januari–Maret 2019 meliputi distribusi antar kota,
+        penurunan tajam di Februari, dan jalur pemulihan berbasis member.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">~322K</div>
+          <div class="hero-stat-label">Total penjualan Q1</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">3 Kota</div>
+          <div class="hero-stat-label">Mandalay · Naypyitaw · Yangon</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">6 Lini</div>
+          <div class="hero-stat-label">Kategori produk</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">Feb ↓</div>
+          <div class="hero-stat-label">Bulan kritis</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 1 — Gambaran Umum
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="report-section" data-section>
+    <span class="ghost-num">01</span>
+    <div class="section-inner">
+
+      <!-- Narasi kiri -->
+      <div class="narasi">
+        <p class="narasi-label">SITUATION</p>
+        <div class="amber-line"></div>
+        <h2>Tiga kota, distribusi yang hampir seimbang — tapi ada yang berbeda.</h2>
+
+        <p>
+          Sekilas, kinerja ketiga kota tampak setara: Naypitaw memimpin dengan 110.569,
+          diikuti Yangon (106.200) dan Mandalay (106.198). Selisihnya tidak sampai 4%.
+          Namun keseimbangan angka di permukaan ini justru menyimpan sinyal penting.
+        </p>
+
+        <div class="callout">
+          <strong>Perhatikan ini di chart</strong>
+          <p>Lihat ukuran dan warna titik pada peta. Naypitaw jauh lebih merah dan besar —
+            artinya bukan hanya lebih tinggi, tapi komposisi produknya pun berbeda dari dua kota lain.</p>
+        </div>
+
+        <p>
+          Grafik kontribusi per tipe pelanggan menunjukkan bahwa pelanggan <em>Member</em>
+          berkontribusi nyata lebih besar dibanding <em>Normal</em> — hampir 30–40% lebih tinggi.
+          Ini bukan kebetulan: program keanggotaan membentuk perilaku belanja yang lebih konsisten.
+        </p>
+
+        <ul class="findings">
+          <li>Member menghasilkan penjualan ~185K, Normal sekitar 135K</li>
+          <li>Semua 6 lini produk terwakili merata di kedua segmen</li>
+          <li>Kesenjangan terbesar kemungkinan di kategori Food & Beverages dan Sports</li>
+        </ul>
+      </div>
+
+      <!-- Embed kanan -->
+      <div class="embed-wrap">
+        <div class="embed-label">
+          <span class="embed-dot"></span>
+          Tableau · Gambaran Umum Kinerja & Profil Pelanggan
+        </div>
+        <div class="tableau-placeholder">
+          <svg width="48" height="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="12" cy="12" r="3" />
+            <circle cx="3" cy="6" r="2" />
+            <circle cx="21" cy="6" r="2" />
+            <circle cx="6" cy="19" r="2" />
+            <circle cx="18" cy="19" r="2" />
+          </svg>
+          <iframe
+            src="https://public.tableau.com/views/GambaranUmumKinerjaPenjualandanProfilPelangganSupermarketQ12019/Dashboard1?:showVizHome=no"
+            width="100%" height="800" frameBorder="0" allowFullScreen title="Dashboard Tableau"
+            title="Dashboard Tableau"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 2 — Penurunan Februari
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="report-section" data-section>
+    <span class="ghost-num">02</span>
+    <div class="section-inner">
+
+      <!-- Narasi kiri -->
+      <div class="narasi">
+        <p class="narasi-label">COMPLICATION</p>
+        <div class="amber-line"></div>
+        <h2>Februari bukan sekadar bulan pendek — ada yang perlu diselidiki.</h2>
+
+        <p>
+          Hampir semua kategori produk mengalami penurunan di Februari sebelum rebound di Maret.
+          Pola V ini konsisten di seluruh lini, yang mengindikasikan faktor eksternal —
+          bukan masalah produk spesifik.
+        </p>
+
+        <div class="callout">
+          <strong>Yang perlu kamu cari di chart</strong>
+          <p>Perhatikan lini <em>Home and Lifestyle</em> — penurunannya paling tajam di antara semua kategori.
+            Ini kategori dengan harga satuan tinggi, jadi transaksi yang lebih sedikit pun langsung terasa di angka
+            total.</p>
+        </div>
+
+        <p>
+          Tabel rating kepuasan memberikan konteks: penurunan penjualan <em>tidak diikuti</em>
+          oleh penurunan kepuasan. Rating rata-rata tetap 6.5–7.4 di semua kota dan kategori.
+          Artinya, pelanggan yang tetap belanja di Februari masih puas — masalahnya
+          ada di <em>frekuensi</em>, bukan pengalaman.
+        </p>
+
+        <ul class="findings">
+          <li>Home & Lifestyle mengalami penurunan terbesar secara absolut</li>
+          <li>Mandalay: Electronic accessories tertinggi (7.12), Sports terendah (6.51)</li>
+          <li>Kepuasan stabil → penurunan Feb bukan indikator krisis kualitas</li>
+          <li>Kemungkinan penyebab: musiman, promosi kurang aktif, atau pola gajian</li>
+        </ul>
+      </div>
+
+      <!-- Embed kanan -->
+      <div class="embed-wrap">
+        <div class="embed-label">
+          <span class="embed-dot"></span>
+          Tableau · Tren Bulanan & Rating Kepuasan
+        </div>
+        <div class="tableau-placeholder">
+          <svg width="48" height="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="12" cy="12" r="3" />
+            <circle cx="3" cy="6" r="2" />
+            <circle cx="21" cy="6" r="2" />
+            <circle cx="6" cy="19" r="2" />
+            <circle cx="18" cy="19" r="2" />
+          </svg>
+
+          <iframe
+            src="https://public.tableau.com/views/AnalisisPenurunanDrastisPenjualanFebruaridanMasalahKepuasanPelanggan/Dashboard2?:showVizHome=no"
+            width="100%" height="800" frameBorder="0" allowFullScreen title="Dashboard Tableau"
+            title="Dashboard Tableau"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 3 — Strategi Pemulihan
+  ══════════════════════════════════════════════════════════════ -->
+  <section class="report-section" data-section>
+    <span class="ghost-num">03</span>
+    <div class="section-inner">
+
+      <!-- Narasi kiri -->
+      <div class="narasi">
+        <p class="narasi-label">REVOLUTION</p>
+        <div class="amber-line"></div>
+        <h2>Lever paling jelas ada di member — dan hari Senin adalah titik lemah kita.</h2>
+
+        <p>
+          Scatter plot harga vs kuantitas menunjukkan pola yang bersih: tidak ada korelasi kuat
+          antara harga satuan tinggi dan kuantitas rendah. Pelanggan membeli 1–10 unit
+          di seluruh rentang harga. Ini berarti margin ekspansi tidak terhalang oleh sensitivitas harga.
+        </p>
+
+        <div class="callout">
+          <strong>Apa yang perlu kamu baca dari scatter plot</strong>
+          <p>Titik biru (Member) tersebar lebih rapat ke arah kuantitas tinggi dibanding titik oranye (Normal).
+            Ini bukti visual bahwa member bukan hanya lebih sering datang, tapi juga beli lebih banyak per transaksi.
+          </p>
+        </div>
+
+        <p>
+          Grafik harian memperlihatkan bahwa penjualan Member (biru) konsisten jauh di atas Normal (oranye)
+          sepanjang minggu. Titik terendah: <strong>Senin</strong> untuk segmen Normal.
+          Ini peluang langsung: promosi harian Senin untuk mendorong konversi Normal ke transaksi aktif
+          bisa menjadi intervensi tercepat.
+        </p>
+
+        <ul class="findings">
+          <li>Member ~60K/hari, Normal ~40–45K/hari — gap konsisten setiap hari</li>
+          <li>Sabtu: puncak penjualan di kedua segmen → manfaatkan untuk flash deal</li>
+          <li>Senin terendah untuk Normal → prioritas promosi push notification / loyalty reward</li>
+          <li>Rating avg. stabil di ~6–7 → basis kepercayaan pelanggan sudah cukup kuat untuk retensi</li>
+        </ul>
+      </div>
+
+      <!-- Embed kanan -->
+      <div class="embed-wrap">
+        <div class="embed-label">
+          <span class="embed-dot"></span>
+          Tableau · Strategi Transaksi Member & Promosi Harian
+        </div>
+        <div class="tableau-placeholder">
+          <svg width="48" height="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="12" cy="12" r="3" />
+            <circle cx="3" cy="6" r="2" />
+            <circle cx="21" cy="6" r="2" />
+            <circle cx="6" cy="19" r="2" />
+            <circle cx="18" cy="19" r="2" />
+          </svg>
+          <iframe src="https://public.tableau.com/views/StrategiPemulihanPenjualanmelaluiOptimalisasiTransaksiMemberdanIntervensiPromosiHarian/Dashboard3?:
+showVizHome=no" width="100%" height="800" frameBorder="0" allowFullScreen title="Dashboard Tableau"
+            title="Dashboard Tableau"></iframe>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════════ -->
+  <footer>
+    <p>Laporan Kinerja Supermarket Q1 2019 · Data oleh <a href="#">Syahfi Riski Yazid</a></p>
+    <p style="color: var(--slate); font-size: 0.75rem;">Visualisasi: Tableau Public · Narasi: internal analysis</p>
+  </footer>
+
+
+  <script>
+    // Scroll-triggered reveal
+    const sections = document.querySelectorAll('[data-section]');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(s => io.observe(s));
+  </script>
+
+</body>
+
+</html>
